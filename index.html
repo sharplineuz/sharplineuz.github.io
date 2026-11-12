@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHARP LINE — futbol xG-tahlili</title>
+<meta name="description" content="xG-tahlil asosidagi kunlik futbol prognozlari, xG-jadvallar va ochiq statistika — Telegram botda bepul.">
+<meta property="og:title" content="SHARP LINE — Tavakkal emas, tahlil.">
+<meta property="og:description" content="xG-tahlil asosidagi kunlik futbol prognozlari va ochiq statistika — Telegram botda bepul.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230A0A0A'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial' font-weight='900' font-size='64' fill='%2339FF14'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--card:#121212;--line:#232323;--green:#39FF14;--muted:#8f8f8f;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:Montserrat,Arial,sans-serif;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg .grid{position:absolute;inset:0;opacity:.07;
+  background-image:linear-gradient(var(--green) 1px,transparent 1px),linear-gradient(90deg,var(--green) 1px,transparent 1px);
+  background-size:48px 48px;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 60%);mask-image:linear-gradient(180deg,#000 0%,transparent 60%)}
+.bg .g1{position:absolute;right:-220px;top:-220px;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(57,255,20,.35),rgba(57,255,20,.06) 45%,transparent 70%)}
+.bg .g2{position:absolute;left:-260px;top:55vh;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(57,255,20,.18),transparent 65%)}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:5px;font-size:16px}
+.brand i{width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.age{font-size:13px;font-weight:800;color:var(--muted);border:1px solid #333;border-radius:999px;padding:6px 12px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:36px 0 64px}
+.pill{display:inline-block;font-size:13px;font-weight:700;letter-spacing:2px;color:var(--green);
+  border:1.5px solid rgba(57,255,20,.5);border-radius:999px;padding:7px 14px;background:rgba(57,255,20,.06)}
+h1{font-size:clamp(40px,6.4vw,72px);font-weight:900;line-height:1;letter-spacing:-1.5px;margin-top:22px;text-transform:uppercase}
+h1 em{display:block;font-style:normal;color:var(--green);text-shadow:0 0 26px rgba(57,255,20,.45);text-transform:none}
+.lead{font-size:clamp(16px,2vw,19px);font-weight:500;color:#c9c9c9;line-height:1.55;margin-top:22px;max-width:520px}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:30px;background:var(--green);color:#0A0A0A;font-weight:900;
+  font-size:18px;letter-spacing:.5px;border-radius:16px;padding:18px 28px;box-shadow:0 0 30px rgba(57,255,20,.45);
+  transition:transform .15s ease,box-shadow .15s ease}
+.cta:hover{transform:translateY(-2px);box-shadow:0 0 42px rgba(57,255,20,.6)}
+.cta svg{width:22px;height:22px;flex:none}
+.note{margin-top:14px;font-size:13px;color:var(--muted);font-weight:600}
+.stack{position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 22px;position:relative}
+.card:before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--green);
+  box-shadow:0 0 12px var(--green)}
+.card+.card{margin-top:14px}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.t{font-size:19px;font-weight:800}
+.lg{font-size:13px;font-weight:600;color:var(--muted);margin-top:4px}
+.pick{flex:none;font-size:14px;font-weight:800;color:#0A0A0A;background:var(--green);border-radius:10px;padding:7px 11px;
+  box-shadow:0 0 16px rgba(57,255,20,.35)}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.meta span{font-size:12.5px;font-weight:700;color:#cfcfcf;background:#1b1b1b;border:1px solid #2a2a2a;border-radius:9px;padding:5px 9px}
+.meta b{color:var(--green)}
+.sample{position:absolute;top:-12px;right:14px;z-index:2;font-size:11px;font-weight:800;letter-spacing:2px;color:#0A0A0A;
+  background:#d0a84a;border-radius:8px;padding:4px 8px}
+section{padding:56px 0}
+h2{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:-.5px;text-transform:uppercase}
+h2 em{font-style:normal;color:var(--green)}
+.sub{color:var(--muted);font-weight:600;margin-top:10px;font-size:16px}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.f .ic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.35)}
+.f .ic svg{width:24px;height:24px}
+.f h3{font-size:18px;font-weight:800;margin-top:16px}
+.f p{font-size:14.5px;font-weight:500;color:#bdbdbd;line-height:1.55;margin-top:8px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;counter-reset:s}
+.s{border:1px dashed rgba(57,255,20,.4);border-radius:20px;padding:22px;counter-increment:s}
+.s:before{content:counter(s);display:flex;width:40px;height:40px;border-radius:50%;border:2px solid var(--green);color:var(--green);
+  align-items:center;justify-content:center;font-weight:900;font-size:18px}
+.s h3{font-size:17px;font-weight:800;margin-top:14px}
+.s p{font-size:14px;color:#bdbdbd;margin-top:6px;line-height:1.5;font-weight:500}
+.faq{margin-top:26px;display:grid;gap:12px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+summary{cursor:pointer;font-weight:800;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--green);font-size:22px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:#bdbdbd;font-size:14.5px;line-height:1.6;margin-top:10px;font-weight:500}
+.final{text-align:center;border:2px solid var(--green);border-radius:28px;padding:44px 22px;background:rgba(57,255,20,.05);
+  box-shadow:0 0 40px rgba(57,255,20,.15)}
+.final .lead{margin:14px auto 0}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;margin-top:20px;color:var(--muted);font-size:13px;font-weight:600;
+  line-height:1.7}
+footer b{color:var(--white);letter-spacing:2px}
+.warn{margin-top:10px;color:#d0a84a}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:34px;padding-top:18px}
+  .feats,.steps{grid-template-columns:1fr}
+  section{padding:42px 0}
+}
+</style>
+</head>
+<body>
+<div class="bg"><div class="grid"></div><div class="g1"></div><div class="g2"></div></div>
+<div class="wrap">
+  <header>
+    <div class="brand"><i></i>SHARP LINE</div>
+    <div class="age">18+</div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <span class="pill">FUTBOL · xG-TAHLIL</span>
+      <h1>Tavakkal emas,<em>tahlil.</em></h1>
+      <p class="lead">Har kuni top-ligalar o'yinlari bo'yicha xG (kutilayotgan gollar) modeliga asoslangan prognozlar,
+        xG-jadvallar va ochiq statistika — Telegram botda. Asosiy bo'limlar bepul.</p>
+      <a class="cta" href="https://t.me/SharpLineUz_bot?start=ads_instagram" id="cta1">
+        <svg viewBox="0 0 24 24" fill="#0A0A0A"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg>
+        Telegram botga o'tish
+      </a>
+      <div class="note">Telefon raqam kerak emas · /start bosing va boshlang</div>
+    </div>
+    <div class="stack" aria-label="Bot kartochkasi namunasi">
+      <span class="sample">NAMUNA</span>
+      <div class="card">
+        <div class="ch"><div><div class="t">Arsenal — Chelsea</div><div class="lg">Angliya · Premier League · 22:00</div></div>
+          <span class="pick">TB 2.5</span></div>
+        <div class="meta"><span>xG <b>1.92 – 1.41</b></span><span>Ehtimol <b>62%</b></span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="t">Real Madrid — Sevilla</div><div class="lg">Ispaniya · La Liga · 00:30</div></div>
+          <span class="pick">P1</span></div>
+        <div class="meta"><span>xG <b>2.31 – 0.84</b></span><span>Ehtimol <b>71%</b></span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="t">Inter — Napoli</div><div class="lg">Italiya · Serie A · 23:45</div></div>
+          <span class="pick">Ikkala jamoa uradi</span></div>
+        <div class="meta"><span>xG <b>1.66 – 1.38</b></span><span>Ehtimol <b>57%</b></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Botda <em>nima bor</em></h2>
+    <p class="sub">Taxmin emas — raqamlar va model.</p>
+    <div class="feats">
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 16l4-5 4 3 6-8"/></svg></div>
+        <h3>Kunlik prognozlar</h3><p>Har kuni top-ligalardagi o'yinlar xG-modeli orqali tahlil qilinadi: ehtimollik, kutilayotgan gollar va asosiy bozorlar.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M9 10v10"/></svg></div>
+        <h3>xG-jadvallar</h3><p>Top-5 liga jamoalari: gollar va xG farqi. Kim omadli, kim omadsiz. Ligalar SHARP XP darajangizga qarab ochiladi.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Ochiq statistika</h3><p>Har bir e'lon qilingan prognoz natijasi saqlanadi — yutganlari ham, yutqazganlari ham. Hech narsa yashirilmaydi.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>xG-regressiya <span style='font-size:11px;letter-spacing:1.5px;color:#39FF14;border:1px solid rgba(57,255,20,.5);border-radius:6px;padding:2px 6px;vertical-align:3px'>VIP</span></h3><p>Kutilganidan kam yoki ko'p gol urayotgan jamoalar ro'yxati — keyingi o'yinlarni oldindan tushunish uchun.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg></div>
+        <h3>SHARP bilan jang</h3><p>Har kuni yangi raund: o'yin natijalarini taxmin qiling, XP to'plang va haftalik reytingda yuqoriga chiqing.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Toshkent vaqti</h3><p>Barcha o'yinlar boshlanish vaqti Toshkent vaqtida ko'rsatiladi — hisoblab o'tirish shart emas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Qanday <em>boshlash</em></h2>
+    <div class="steps">
+      <div class="s"><h3>Botni oching</h3><p>Pastdagi tugmani bosing — Telegram'da SHARP LINE boti ochiladi.</p></div>
+      <div class="s"><h3>/start bosing</h3><p>Telefon raqam yoki ro'yxatdan o'tish kerak emas.</p></div>
+      <div class="s"><h3>Tahlilni o'qing</h3><p>Bugungi prognozlar, xG-jadvallar va statistika — menyuda.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Savol-<em>javob</em></h2>
+    <div class="faq">
+      <details><summary>Bot pullikmi?</summary><p>Kunlik prognozlar, ochiq statistika va viktorina — bepul. xG-jadvallar SHARP XP darajangizga qarab ochiladi. Chuqurroq vositalar (xG-regressiya, Value tanlovlari va boshqalar) — VIP bo'limda.</p></details>
+      <details><summary>xG nima?</summary><p>xG (expected goals) — har bir zarbaning gol bo'lish ehtimoli. Jamoaning xG ko'rsatkichi u qancha gol urishi "kerak" bo'lganini ko'rsatadi va natijadan ko'ra o'yin sifatini aniqroq baholaydi.</p></details>
+      <details><summary>Prognozlar kafolatlanganmi?</summary><p>Yo'q. Bu statistik model asosidagi tahlil, kafolat emas. Futbolda har qanday natija bo'lishi mumkin. Har bir prognoz natijasi botdagi ochiq statistikada ko'rinadi.</p></details>
+      <details><summary>Shaxsiy ma'lumotlarim kerakmi?</summary><p>Yo'q. Bot faqat Telegram sizga ko'rsatadigan ma'lumotlarni (ID va username) ishlatadi — telefon raqam yoki boshqa ma'lumot so'ralmaydi.</p></details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final">
+      <h2>Bugungi tahlil <em>tayyor</em></h2>
+      <p class="lead">Botni oching va bugungi o'yinlar bo'yicha xG-prognozlarni ko'ring.</p>
+      <a class="cta" href="https://t.me/SharpLineUz_bot?start=ads_instagram" id="cta2">
+        <svg viewBox="0 0 24 24" fill="#0A0A0A"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.7.2 1.4 1.5z"/></svg>
+        Telegram botga o'tish
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <div><b>SHARP LINE</b> · Tavakkal emas, tahlil.</div>
+    <div class="warn">18+ · Faqat voyaga yetganlar uchun. Prognozlar — statistik tahlil, kafolat emas. Stavka — risk:
+      faqat yo'qotishga tayyor bo'lgan mablag' bilan va mas'uliyat bilan.</div>
+    <div>Telegram: <a href="https://t.me/SharpLineUz_bot?start=ads_instagram">@SharpLineUz_bot</a> ·
+      Kanal: <a href="https://t.me/sharpline_uz">@sharpline_uz</a></div>
+  </footer>
+</div>
+</body>
+</html>
